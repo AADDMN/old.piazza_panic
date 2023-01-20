@@ -5,3 +5,4 @@ University of york ENG1 project
 - Daniel Kirkpatrick
 - adam
 - matthew
+- Dominik Hagowski
