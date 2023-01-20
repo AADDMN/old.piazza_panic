@@ -8,12 +8,16 @@ import com.badlogic.gdx.utils.ScreenUtils;
 public class Main extends ApplicationAdapter {
 	SpriteBatch batch;
 	Texture img;
+	Texture imgFridge;
 	Chef chef1;
+	Fridge fridge;
 	@Override
 	public void create () {
 		batch = new SpriteBatch();
 		img = new Texture("one.png");
+		imgFridge = new Texture("fridge.png");
 		chef1 = new Chef(img);
+		fridge = new Fridge(imgFridge);
 	}
 
 	@Override
@@ -21,6 +25,7 @@ public class Main extends ApplicationAdapter {
 		ScreenUtils.clear(181, 101, 29, 1);
 		batch.begin();
 		chef1.Draw(batch);
+		fridge.Draw(batch);
 		batch.end();
 	}
 	

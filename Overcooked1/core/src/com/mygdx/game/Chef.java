@@ -10,7 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 public class Chef {
     public Vector2 position;
     public Sprite sprite;
-    public float speed = 500;
+    public float speed = 250;
     public Chef(Texture img)
     {
         sprite = new  Sprite(img);
@@ -24,6 +24,13 @@ public class Chef {
         if(Gdx.input.isKeyPressed(Keys.D)) position.x += deltaTime * speed;
         if(Gdx.input.isKeyPressed(Keys.W)) position.y += deltaTime * speed;
         if(Gdx.input.isKeyPressed(Keys.S)) position.y -= deltaTime * speed;
+
+        if(position.x - (sprite.getWidth()*sprite.getScaleX()/2)<=0) position.x = (sprite.getWidth()*sprite.getScaleX()/2);
+        if(position.x + (sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x = Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
+        if(position.y - (sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y = (sprite.getHeight()*sprite.getScaleY()/2);        
+        if(position.y + (sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y = Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+
+        
 
         
     }
