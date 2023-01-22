@@ -11,13 +11,15 @@ public class Chef {
     public Vector2 position;
     public Sprite sprite;
     public float speed = 250;
+    
     public Chef(Texture img)
     {
-        sprite = new  Sprite(img);
+        sprite = new Sprite(img);
         sprite.setScale(1);
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);
 
     } 
+    
     public void Update(float deltaTime)
     {
         if(Gdx.input.isKeyPressed(Keys.A)) position.x -= deltaTime * speed;
@@ -25,15 +27,26 @@ public class Chef {
         if(Gdx.input.isKeyPressed(Keys.W)) position.y += deltaTime * speed;
         if(Gdx.input.isKeyPressed(Keys.S)) position.y -= deltaTime * speed;
 
-        if(position.x - (sprite.getWidth()*sprite.getScaleX()/2)<=0) position.x = (sprite.getWidth()*sprite.getScaleX()/2);
-        if(position.x + (sprite.getWidth()*sprite.getScaleX()/2)>=Gdx.graphics.getWidth()) position.x = Gdx.graphics.getWidth()-(sprite.getWidth()*sprite.getScaleX()/2);
-        if(position.y - (sprite.getHeight()*sprite.getScaleY()/2)<=0) position.y = (sprite.getHeight()*sprite.getScaleY()/2);        
-        if(position.y + (sprite.getHeight()*sprite.getScaleY()/2)>=Gdx.graphics.getHeight()) position.y = Gdx.graphics.getHeight()-(sprite.getHeight()*sprite.getScaleY()/2);
+	float spriteWidthOffset = (sprite.getWidth() * sprite.getScaleX()) / 2;
+	float spriteHeightOffset = (sprite.getHeight() * sprite.getScaleY()) / 2;
 
-        
+        if (position.x <= 0) {
+		position.x = 0;
+	}
+	
+	if (position.x + spriteWidthOffset >= Gdx.graphics.getWidth()) {
+		position.x = Gdx.graphics.getWidth() - spriteWidthOffset;
+	}
 
-        
+        if (position.y <= 0) {
+		position.y = 0;
+	}
+
+	if (position.y + spriteHeightOffset >= Gdx.graphics.getHeight()) {
+		position.y = Gdx.graphics.getHeight() - spriteHeightOffset;
+	}
     }
+
     public void Draw(SpriteBatch batch)
     {
         Update(Gdx.graphics.getDeltaTime());
