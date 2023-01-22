@@ -10,6 +10,8 @@ public class DesktopLauncher {
 		Lwjgl3ApplicationConfiguration config = new Lwjgl3ApplicationConfiguration();
 		config.setForegroundFPS(60);
 		config.setTitle("Overcooked1");
+		config.setWindowedMode(1600, 800);
 		new Lwjgl3Application(new Main(), config);
+		
 	}
 }

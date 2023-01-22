@@ -1,4 +1,6 @@
 package com.mygdx.game;
+import java.util.ArrayList;
+
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input.Keys;
 
@@ -11,8 +13,10 @@ public class Chef {
     public Vector2 position;
     public Sprite sprite;
     public float speed = 250;
+    public ArrayList<String> stack ;
     public Chef(Texture img)
     {
+        stack = new ArrayList<String>();
         sprite = new  Sprite(img);
         sprite.setScale(1);
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);
@@ -39,5 +43,21 @@ public class Chef {
         Update(Gdx.graphics.getDeltaTime());
         sprite.setPosition(position.x, position.y);
         sprite.draw(batch);
+    }
+
+    public String get(){
+        if(stack.isEmpty()){
+           return null;
+        }
+        return stack.get(stack.size() -1);
+
+    }
+
+    public void addItem(String item){
+        stack.add(item);
+    }
+
+    public void bin(){
+        stack.clear();
     }
 }
