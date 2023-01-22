@@ -10,16 +10,13 @@ import java.util.ArrayList;
 public class GameScreen implements Screen {
 	final Main game;
 	
-	Texture img;
-	Texture imgFridge;
-	
 	ArrayList<GameObject> objects = new ArrayList<GameObject>();
 
 	public GameScreen(Main game) {
 		this.game = game;
 
-		img = new Texture("one.png");
-		imgFridge = new Texture("fridge.png");
+		Texture img = new Texture("one.png");
+		Texture imgFridge = new Texture("fridge.png");
 		
 		objects.add(new Chef(img));
 		objects.add(new Fridge(imgFridge));
@@ -49,7 +46,11 @@ public class GameScreen implements Screen {
 	
 	@Override
 	public void dispose () {
-		img.dispose();
-		imgFridge.dispose();
+		for (int i = 0; i < objects.size(); i++) {
+			GameObject currentObject = objects.get(i);
+
+			currentObject.Dispose();
+		}
+		objects.clear();
 	}
 }
