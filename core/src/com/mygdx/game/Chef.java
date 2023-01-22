@@ -7,7 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Chef {
+public class Chef implements GameObject {
     public Vector2 position;
     public Sprite sprite;
     public float speed = 250;
@@ -47,9 +47,8 @@ public class Chef {
 	}
     }
 
-    public void Draw(SpriteBatch batch, float delta)
+    public void Draw(SpriteBatch batch)
     {
-        Update(delta);
         sprite.setPosition(position.x, position.y);
         sprite.draw(batch);
     }

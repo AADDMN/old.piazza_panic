@@ -5,23 +5,24 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Screen;
-
+import java.util.ArrayList;
 
 public class GameScreen implements Screen {
 	final Main game;
 	
 	Texture img;
 	Texture imgFridge;
-	Chef chef1;
-	Fridge fridge;
 	
+	ArrayList<GameObject> objects = new ArrayList<GameObject>();
+
 	public GameScreen(Main game) {
 		this.game = game;
 
 		img = new Texture("one.png");
 		imgFridge = new Texture("fridge.png");
-		chef1 = new Chef(img);
-		fridge = new Fridge(imgFridge);
+		
+		objects.add(new Chef(img));
+		objects.add(new Fridge(imgFridge));
 	}
 
 	@Override
@@ -30,9 +31,13 @@ public class GameScreen implements Screen {
 		
 		game.batch.begin();
 		
-		chef1.Draw(game.batch, delta);
-		fridge.Draw(game.batch, delta);
-		
+		for (int i = 0; i < objects.size(); i++){
+			GameObject currentObject = objects.get(i);
+
+			currentObject.Update(delta);
+			currentObject.Draw(game.batch);
+		}
+
 		game.batch.end();
 	}
 

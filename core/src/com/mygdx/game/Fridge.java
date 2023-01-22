@@ -8,7 +8,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
-public class Fridge {
+public class Fridge implements GameObject{
     public Vector2 position;
     public Sprite sprite;
     public Fridge(Texture img)
@@ -18,7 +18,9 @@ public class Fridge {
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);
     }
 
-    public void Draw(SpriteBatch batch, float delta)
+    public void Update(float delta) {};
+
+    public void Draw(SpriteBatch batch)
     {
         sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
