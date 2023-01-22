@@ -17,9 +17,17 @@ public class Fridge implements GameObject{
     public Fridge(Texture img)
     {
 	this.img = img;
-        sprite = new  Sprite(img);
+        sprite = new Sprite(img);
         sprite.setScale(1);
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);
+    }
+
+    public Fridge(Texture img, Vector2 position)
+    {
+        this.img = img;
+	sprite = new Sprite(img);
+	sprite.setScale(1);
+	this.position = position;
     }
 
     public void Update(float delta) {};

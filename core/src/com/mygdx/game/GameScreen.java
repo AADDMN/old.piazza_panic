@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Screen;
 import java.util.ArrayList;
+import com.badlogic.gdx.math.Vector2;
 
 public class GameScreen implements Screen {
 	final Main game;
@@ -17,9 +18,15 @@ public class GameScreen implements Screen {
 
 		Texture img = new Texture("one.png");
 		Texture imgFridge = new Texture("fridge.png");
-		
+
 		objects.add(new Chef(img));
 		objects.add(new Fridge(imgFridge));
+
+		for (int x = 0; x < 640; x += 150){
+			for (int y = 0; y < 480; y += 150){
+				objects.add(new Fridge(imgFridge, new Vector2(x, y)));
+			}
+		}
 	}
 
 	@Override
