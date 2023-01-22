@@ -47,9 +47,9 @@ public class Chef {
 	}
     }
 
-    public void Draw(SpriteBatch batch)
+    public void Draw(SpriteBatch batch, float delta)
     {
-        Update(Gdx.graphics.getDeltaTime());
+        Update(delta);
         sprite.setPosition(position.x, position.y);
         sprite.draw(batch);
     }

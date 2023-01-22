@@ -18,7 +18,7 @@ public class Fridge {
         position = new Vector2(Gdx.graphics.getWidth()/2,sprite.getScaleY()*sprite.getHeight()/2);
     }
 
-    public void Draw(SpriteBatch batch)
+    public void Draw(SpriteBatch batch, float delta)
     {
         sprite.setPosition(position.x,position.y);
         sprite.draw(batch);
