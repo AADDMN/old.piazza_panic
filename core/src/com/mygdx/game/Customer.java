@@ -12,15 +12,12 @@ public class Customer {
     public Sprite customSprite;
     public ArrayList<String> stack ;
 
-
-
     public Customer(Texture img)
     {
         stack = new ArrayList<String>();
         customSprite = new  Sprite(img);
         customSprite.setScale(1);
         position = new Vector2(10,10);
-        
     }
 
     public void Draw(SpriteBatch batch)
@@ -33,11 +30,7 @@ public class Customer {
            return null;
         }
         return stack.get(stack.size() -1);
-
     }
-
-    
-
 
     public void addItem(String item){
         stack.add(item);

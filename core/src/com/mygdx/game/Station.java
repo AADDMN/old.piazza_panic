@@ -15,8 +15,6 @@ public class Station extends Rectangle{
     public Sprite stationSprite;
     public ArrayList<String> stack ;
 
-
-
     public Station(Texture img)
     {
         stack = new ArrayList<String>();
@@ -38,9 +36,6 @@ public class Station extends Rectangle{
         return stack.get(stack.size() -1);
 
     }
-
-    
-
 
     public void addItem(String item){
         stack.add(item);

@@ -1,36 +1,54 @@
 package com.mygdx.game;
-import com.badlogic.gdx.Input.Keys;
-import com.badlogic.gdx.Gdx;
-
-import java.util.Vector;
 
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.Screen;
+import java.util.ArrayList;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.graphics.g2d.Sprite;
+import com.badlogic.gdx.Input.Keys;
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.utils.ScreenUtils;
 
-public class Main extends ApplicationAdapter {
-	SpriteBatch batch;
+public class GameScreen implements Screen {
+	final Main game;
+	
+	ArrayList<GameObject> objects = new ArrayList<GameObject>();
+
+	Skin skin;
+
 	Texture img;
 	Texture imgFridge;
 	Texture imgStack;
 	Texture imgChop;
 	Texture imgBowl;
 	Texture imgCust;
-	Chef chef1;
-	Customer[] customers = new Customer[1];
-	int numCust = 1;
+
 	Station fridge;
 	Station chop;
 	Station bowl;
+
+	Chef chef1;
+
 	Rectangle stack;
-	Skin skin;
-	@Override
-	public void create () {
+
+	Customer[] customers = new Customer[1];
+	int numCust = 1;
+
+	public GameScreen(Main game) {
+		this.game = game;
+
+		Texture img = new Texture("one.png");
+		Texture imgFridge = new Texture("fridge.png");
+
+		chef1 = new Chef(img);
+
+		objects.add(chef1);
+
 		skin = new Skin();
         skin.add("chopDefault", new Texture("chop.jpg"));
         skin.add("chopLettuce", new Texture("chopLettuce.png"));
@@ -46,22 +64,20 @@ public class Main extends ApplicationAdapter {
         skin.add("bowlTO", new Texture("bowlTO.png"));
         skin.add("bowlOL", new Texture("bowlOL.png"));
 
-
-		batch = new SpriteBatch();
-		img = new Texture("one.png");
 		imgStack = new Texture("empty.png");
-		imgFridge = new Texture("fridge.png");
 		imgChop = new Texture("chop.jpg");
 		imgBowl = new Texture("bowl.png");
 		imgCust = new Texture("customer.png");
-		chef1 = new Chef(img);
+
 		fridge = new Station(imgFridge);
 		chop = new Station(imgChop);
 		bowl = new Station(imgBowl);
+
 		chop.position.x= 900;
 		chop.position.y= 400;
 		bowl.position.x= 200;
 		bowl.position.y= 400;
+
 		int i = 0;
 		for(int y = 0;y<numCust;y++){
 			customers[i] = new Customer(imgCust);
@@ -70,18 +86,27 @@ public class Main extends ApplicationAdapter {
 	}
 
 	@Override
-	public void render () {
+	public void render (float delta) {
 		ScreenUtils.clear(181, 101, 29, 1);
-		batch.begin();
-		chef1.Draw(batch);
-		fridge.Draw(batch);
-		chop.Draw(batch);
-		bowl.Draw(batch);
-		batch.draw(imgStack,700,300);
-		for(int i = 0;i<customers.length;i++){
-			customers[i].Draw(batch);
+		
+		game.batch.begin();
+		
+		for (int i = 0; i < objects.size(); i++){
+			GameObject currentObject = objects.get(i);
+
+			currentObject.Update(delta);
+			currentObject.Draw(game.batch);
 		}
 
+		fridge.Draw(game.batch);
+		chop.Draw(game.batch);
+		bowl.Draw(game.batch);
+
+		game.batch.draw(imgStack,700,300);
+
+		for(int i = 0;i<customers.length;i++){
+			customers[i].Draw(game.batch);
+		}
 
 
 		if(chef1.sprite.getBoundingRectangle().overlaps(fridge.stationSprite.getBoundingRectangle()) & Gdx.input.isKeyPressed(Keys.L)){
@@ -172,12 +197,6 @@ public class Main extends ApplicationAdapter {
 		}
 
 
-
-
-
-
-
-
 		if(chef1.sprite.getBoundingRectangle().overlaps(chop.stationSprite.getBoundingRectangle()) & Gdx.input.isKeyPressed(Keys. ENTER) & chop.get() == "Lettuce"){
 			chef1.addItem("cutLettuce");
 			chop.bin();
@@ -221,12 +240,23 @@ public class Main extends ApplicationAdapter {
 		if(chef1.sprite.getBoundingRectangle().overlaps(bowl.stationSprite.getBoundingRectangle()) & Gdx.input.isKeyPressed(Keys. E) ){
 			bowl.bin();
 		}
-		batch.end();
+		
+		game.batch.end();
 	}
+
+	@Override public void show() {}
+	@Override public void resize(int height, int width) {}
+	@Override public void pause() {}
+	@Override public void resume() {}
+	@Override public void hide() {}
 	
 	@Override
 	public void dispose () {
-		batch.dispose();
-		img.dispose();
+		for (int i = 0; i < objects.size(); i++) {
+			GameObject currentObject = objects.get(i);
+
+			currentObject.Dispose();
+		}
+		objects.clear();
 	}
 }

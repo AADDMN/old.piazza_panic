@@ -1,5 +1,9 @@
 # piazza_panic
 University of york ENG1 project
-Daniel Kirkpatrick
-adam
-matthew
+
+## Credits:
+- Daniel Kirkpatrick
+- adam
+- matthew
+- Dominik Hagowski
+- Ani Thomas
