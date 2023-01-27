@@ -3,7 +3,7 @@ University of york ENG1 project
 
 ## Credits:
 - Daniel Kirkpatrick
-- adam
+- Adam Hewlett
 - matthew
 - Dominik Hagowski
 - Ani Thomas
