@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.badlogic.gdx.Input.Keys;
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
@@ -61,6 +62,8 @@ public class GameScreen implements Screen {
         this.game = game;
         font = new BitmapFont();
 
+		//Using skin to change the image of the stations when interacted with
+
 		skin = new Skin();
 		skin.add("chopDefault", new Texture("chop.png"));
 		skin.add("chopLettuce", new Texture("chopLettuce.png"));
@@ -96,6 +99,7 @@ public class GameScreen implements Screen {
 		skin.add("saladCust", new Texture("saladCust.png"));
 		skin.add("customer", new Texture("customer.png"));
 
+		//Giving all the textures the image they relate to
 		img = new Texture("one.png");
 		img2 = new Texture("two.png");
 		imgWin = new Texture("win.png");
@@ -124,6 +128,8 @@ public class GameScreen implements Screen {
 		grill = new Station(imgGrill);
 		press = new Station(imgPress);
 		plate = new Station(imgPlate);
+
+		//Positioning all the stations
 		chop.position.x = 1450;
 		chop.position.y = 50;
 		bowl.position.x = 1200;
@@ -136,6 +142,8 @@ public class GameScreen implements Screen {
 		plate.position.y = 960;
         fridge.position.x = 1750;
 		fridge.position.y = 540;
+
+		//Creating the customers at incrementing 5 second delays
 		float delay1 = 5;
 		float delay2 = 10;
 		float delay3 = 15;
@@ -182,6 +190,8 @@ public class GameScreen implements Screen {
 
     public void render(float delta){
 
+
+	//Switch to end screen if conditions are met
         if(currentScreen == Screen.GAME_OVER){
             Gdx.gl.glClearColor(.25f, 0, 0, 1);
             Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
@@ -191,7 +201,9 @@ public class GameScreen implements Screen {
 
 			game.batch.draw(imgWin, 600, 250);
             font.draw(game.batch,"Time = " + time.toString(), Gdx.graphics.getWidth()*.25f, Gdx.graphics.getHeight() * .15f);
-
+			if (Gdx.input.isKeyPressed(Input.Keys.R)) {
+				game.setScreen(new GameScreen(game));
+			}
             game.batch.end();
         }
         if (currentScreen == Screen.MAIN_GAME){
@@ -222,7 +234,7 @@ game.batch.draw(backGroundImage, 0, 0);
 		chef2.Draw(game.batch);
 		game.batch.draw(imgStack, 1700, 900);
 
-
+		//Switch active chef
 		if(Gdx.input.isKeyPressed(Keys.NUM_1)){
 			chef1.turn();
 			chef2.unTurn();
@@ -264,7 +276,7 @@ game.batch.draw(backGroundImage, 0, 0);
 				}
 			}
 		}
-
+//Checks if customers are given correct item and removes them if so
 		 for(int j = 0;j<customers.length;j++){
 			if(customers[j] == null){
 				break;
@@ -292,7 +304,7 @@ game.batch.draw(backGroundImage, 0, 0);
 		
 		
 
-		
+	//Allows chef's to take items from fridge	
 
 		if (chefs[turn].sprite.getBoundingRectangle().overlaps(fridge.stationSprite.getBoundingRectangle())
 				& Gdx.input.isKeyPressed(Keys.L)) {
@@ -322,6 +334,7 @@ game.batch.draw(backGroundImage, 0, 0);
 			chefs[turn].bin();
 		}
 
+		//changes image of item in inventory
 		if (chefs[turn].get() == null) {
 			imgStack = new Texture("empty.png");
 		}
@@ -382,7 +395,7 @@ game.batch.draw(backGroundImage, 0, 0);
 		if (grill.get() == "Patty") {
 			grill.stationSprite = skin.getSprite("grillPatty");
 			float delay = 3;
-
+			//wait 5 seconds then changes the raw patty into a cooked patty
 			Timer.schedule(new Task() {
 				@Override
 				public void run() {
@@ -469,7 +482,7 @@ game.batch.draw(backGroundImage, 0, 0);
 			plate.bin();
 			chefs[turn].addItem("Burger");
 		}
-
+		//chef interacts with chopping stations to chop items
 		if (chefs[turn].sprite.getBoundingRectangle().overlaps(chop.stationSprite.getBoundingRectangle())
 				& Gdx.input.isKeyPressed(Keys.ENTER) & chop.get() == "Lettuce") {
 			chefs[turn].addItem("cutLettuce");

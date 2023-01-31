@@ -7,7 +7,8 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Game;
 
 public class Main extends Game {
-	
+	private int width, height;
+
 	public SpriteBatch batch;
 	public OrthographicCamera camera;
     public Viewport viewport;
@@ -18,7 +19,14 @@ public class Main extends Game {
 		setScreen(new MainMenu(this));
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false, 1920, 1080);
-		//viewport = new FitViewport(100, 480, camera);
+		viewport = new FitViewport(1920, 1080, camera);
+
+	}
+	@Override public void resize(int width, int height) 
+	{
+		this.width = width;
+		this.height = height;
+		viewport.update(width, height);
 
 	}
 
