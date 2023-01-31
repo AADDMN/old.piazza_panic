@@ -190,6 +190,26 @@ public class GameScreen implements Screen {
 
     public void render(float delta){
 
+		for(int a= 0; a<2 ; a++){
+			if (chefs[a].position.x < 0){
+				chefs[a].position.x = 0;
+			}
+		}
+		for(int b= 0; b<2 ; b++){
+			if (chefs[b].position.x > 1800){
+				chefs[b].position.x = 1800;
+			}
+		}
+		for(int c= 0; c<2 ; c++){
+			if (chefs[c].position.y < 0){
+				chefs[c].position.y = 0;
+			}
+		}for(int d= 0; d<2 ; d++){
+			if (chefs[d].position.y > 960){
+				chefs[d].position.y = 960;
+			}
+		}
+
 
 	//Switch to end screen if conditions are met
         if(currentScreen == Screen.GAME_OVER){
