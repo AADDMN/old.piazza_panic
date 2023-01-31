@@ -2,23 +2,19 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.utils.ScreenUtils;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.Gdx;
 
-public class MainMenu implements Screen {
+public class EndMenu implements Screen {
 	final Main game;
 
 	private BitmapFont font;
 	private int width, height;
-	private Texture imgStart;
-
-	public MainMenu(Main game) {
+	
+	public EndMenu(Main game) {
 		this.game = game;
 		this.font = new BitmapFont();
-		imgStart = new Texture("menu.png");
-
 	}
 
 	@Override
@@ -26,12 +22,12 @@ public class MainMenu implements Screen {
 		ScreenUtils.clear(0, 0, 0, 1);
 		
 		game.batch.begin();
-		game.batch.draw(imgStart, 0, 0);
-
+		
+		font.draw(game.batch, "Temporary Main Menu. Press A to continue", (int)(width * 0.5), (int)(height * 0.5));
 
 		game.batch.end();
 
-		if (Gdx.input.isKeyPressed(Input.Keys.ENTER)) {
+		if (Gdx.input.isKeyPressed(Input.Keys.R)) {
 			game.setScreen(new GameScreen(game));
 		}
 
