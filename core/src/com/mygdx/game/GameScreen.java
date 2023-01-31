@@ -196,6 +196,9 @@ public class GameScreen implements Screen {
         }
         if (currentScreen == Screen.MAIN_GAME){
         ScreenUtils.clear(181, 101, 29, 1);
+		game.camera.update();
+
+		game.batch.setProjectionMatrix(game.camera.combined);
 
 game.batch.begin();
 time +=Gdx.graphics.getDeltaTime();
