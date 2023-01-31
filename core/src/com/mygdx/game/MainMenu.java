@@ -1,7 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.badlogic.gdx.utils.viewport.FitViewport;
+import com.badlogic.gdx.utils.viewport.StretchViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.graphics.Camera;
+import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.Input;
@@ -13,20 +18,27 @@ public class MainMenu implements Screen {
 	private BitmapFont font;
 	private int width, height;
 	private Texture imgStart;
-
+	private Viewport viewport;
+    private Camera camera;
 	public MainMenu(Main game) {
+		camera = new OrthographicCamera();
+        viewport = new FitViewport(Gdx.graphics.getWidth(), Gdx.graphics.getHeight());
+        viewport.setCamera(camera);
 		this.game = game;
 		this.font = new BitmapFont();
-		imgStart = new Texture("menu.png");
-
+		imgStart = new Texture("menu (1).png");
+		
 	}
 
 	@Override
 	public void render (float delta) {
 		ScreenUtils.clear(0, 0, 0, 1);
 		
+		
+		
+		camera.update();
 		game.batch.begin();
-		game.batch.draw(imgStart, 0, 0);
+		game.batch.draw(imgStart, 0, 0,viewport.getWorldWidth(),viewport.getWorldHeight());
 
 
 		game.batch.end();
@@ -39,10 +51,12 @@ public class MainMenu implements Screen {
 
 	@Override public void show() {}
 	
-	@Override public void resize(int height, int width) 
+	@Override public void resize(int width, int height) 
 	{
 		this.width = width;
 		this.height = height;
+		viewport.update(width, height);
+
 	}
 	
 	@Override public void pause() {}
@@ -52,5 +66,6 @@ public class MainMenu implements Screen {
 	@Override
 	public void dispose () {
 	}
+	
 }
 
