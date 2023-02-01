@@ -77,8 +77,8 @@ public class GameScreen implements Screen {
 		skin.add("bowlL", new Texture("lettuceBowl.png"));
 		skin.add("bowlO", new Texture("onionBowl.png"));
 		skin.add("bowlT", new Texture("tomatoBowl.png"));
-		skin.add("bowlTL", new Texture("LettuceTomatoBowl.png"));
-		skin.add("bowlTLO", new Texture("saladBowl.png"));
+		skin.add("bowlTL", new Texture("lettuceTomatoBowl.png"));
+		skin.add("bowlTLO", new Texture("SaladBowl.png"));
 		skin.add("bowlTO", new Texture("tomatoOnionBowl.png"));
 		skin.add("bowlOL", new Texture("LettuceOnionBowl.png"));
 
@@ -433,7 +433,7 @@ game.batch.draw(backGroundImage, 0, 0);
 		}
 
 		if (chefs[turn].get() == "fullBowl") {
-			imgStack = new Texture("saladBowl.png");
+			imgStack = new Texture("SaladBowl.png");
 		}
 		if (chop.get() == null) {
 			chop.stationSprite = skin.getSprite("chopDefault");
